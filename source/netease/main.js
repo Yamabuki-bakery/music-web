@@ -72,9 +72,10 @@ function updatePage(songObj) {
   songArtist.textContent = '🧑‍🎤 ' + songObj.artist;
   songAlbum.textContent = '📀 ' + songObj.album;
   songVip.textContent = '🔐 ' + (songObj.vip ? 'VIP ✅ yes' : 'VIP ❌ no');
-  songFlac.textContent = '🎧 ' + (songObj.flac ? 'FLAC ✅' : 'FLAC 🈚️️');
+  songFlac.textContent = '🎧 ' + (songObj.flacUrl ? 'FLAC ✅' : 'FLAC 🈚️️');
 
   // flac 開關
+  downButton.disabled = false;
   if (!songObj.flacUrl) {
     flacSwitch.disabled = true;
     flacSwitch.checked = false;
@@ -86,6 +87,7 @@ function updatePage(songObj) {
     player.src = songObj.flacUrl;
   }
 
+  if(!songObj.mp3Url) downButton.disabled = true;
 
   // 歌詞是另外的函數所以先判斷一下
   if (songObj.lyrics) {

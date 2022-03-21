@@ -94,6 +94,8 @@ async function getAudio(song) {
     song.flacUrl = audioLinks.flac ? audioLinks.flac.replace(/^http:\/\//i, 'https://') : null;
   } catch (err) {
     console.log('audio link err: ' + err)
+    song.mp3Url = null;
+    song.flacUrl = null;
   }
 }
 
