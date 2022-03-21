@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="/my-static/netease/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Primary Meta Tags -->
+    <title>網易雲音 Le</title>
+    <meta name="description" content="網易雲音 Le 迫真網頁版">
+    <meta property="og:site_name" content="網易雲音 Le 迫真網頁版"/>
+
+    <!-- Open Graph / Facebook / Template -->
+    {% if detailed %}
+    <meta property="og:type" content="music.song"/>
+    <meta property="og:url" content="https://jvbao.eu/netease/{{ songid }}">
+    <meta property="og:title" content="{{ songTitle }}"/>
+    <meta property="og:description" content="{{ artist }} · {{ year }}"/>
+    <meta property="og:image" content="{{ coverUrl }}"/>
+    <meta property="og:image:alt" content="Album Cover">
+
+    <meta name="twitter:url" content="https://jvbao.eu/netease/{{ songid }}">
+    <meta name="twitter:title" content="{{ songTitle }}">
+    <meta name="twitter:description" content="{{ artist }} · {{ year }}">
+    <meta name="twitter:image" content="{{ coverUrl }}">
+
+    {% else %}
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jvbao.eu/netease/">
+    <meta property="og:title" content="網易雲音 Le">
+    <meta property="og:description" content="網易雲音 Le 迫真網頁版">
+    <meta property="og:image" content="https://yamabuki-bakery.github.io/dokimoon/moon.png">
+    <meta property="og:image:alt" content="網易雲音 Le 迫真網頁版">
+
+    <meta name="twitter:url" content="https://jvbao.eu/netease/">
+    <meta name="twitter:title" content="網易雲音 Le">
+    <meta name="twitter:description" content="網易雲音 Le 迫真網頁版">
+    <meta name="twitter:image" content="https://yamabuki-bakery.github.io/dokimoon/moon.png">
+    {% endif %}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="網易雲音 Le 迫真網頁版"/>
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/my-static/netease/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/my-static/netease/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/my-static/netease/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/my-static/netease/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/my-static/netease/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/my-static/netease/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/my-static/netease/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <div class="container my-2">
+            <!--頂欄元素-->
+            <div class="row">
+
+                <a class="col-lg-2 text-dark text-decoration-none ">
+                    <span class="fs-4" id="logoText">神必服務</span>
+                </a>
+
+                <form class="col-10 col-lg-8" onsubmit="return false">
+                    <input id="searchBox" type="text" class="form-control form-control-dark" placeholder="ID or 網易雲分享 複製連結...">
+                </form>
+
+                <div class="col-2 col-lg-2 ">
+                    <button id="aoButton" type="button" class="btn btn-primary">ao</button>
+                </div>
+
+            </div>
+
+        </div>
+        </header>
+    </div>
+
+    <main class="container">
+
+        <div class="container">
+            <div class="row">
+              <!--專輯圖片和信息-->
+              <div class="col-lg-4 mb-3">
+
+                  <div class="row">
+                      <!--專輯圖片-->
+                      <div class="col-6 col-lg album-pic" >
+                          <img id='albumPicArea' src="/my-static/netease/bootstrap-stack.png" class="img-fluid">
+
+                      </div>
+                      <!--換 col 行然後歌曲信息-->
+                      <div class=""></div>
+                      <div class="col mb-3">
+                          <ul class="list-group song-info">
+                              <li class="list-group-item" id='song-name'>A disabled item</li>
+                              <li class="list-group-item" id='song-artist'>A second item</li>
+                              <li class="list-group-item" id='song-album'>A third item</li>
+                              <li class="list-group-item" id='song-vip'>A fourth item</li>
+                              <li class="list-group-item" id='song-flac'>And a fifth one</li>
+                          </ul>
+                      </div>
+                      <div class=""></div>
+
+                      <div class="col-4 ms-3 form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="flacSwitch" disabled>
+                          <label class="form-check-label" for="flacSwitch">FLAC</label>
+                      </div>
+
+                      <div class="col-7 btn-group">
+
+                        <button type="button" class="btn btn-primary" id="downButton">Download</button>
+
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" id="curlDownButton" >Download via curl</a></li>
+                          <li><a class="dropdown-item" id="wgetDownButton">Download via wget</a></li>
+                        </ul>
+                      </div><!-- /btn-group -->
+                      <div class="mb-3"></div>
+
+                      <div class="btn-group">
+
+                        <button type="button" class="btn btn-danger" id="openAppBtn">🔗打開真正的網疑雲音勒 App 聽這首歌</button>
+
+                      </div>
+
+                  </div>
+              </div>
+              <!--歌詞-->
+              <div class="col-lg-8">
+
+                <div class="row">
+
+                  <div class="col-9" >
+                    <audio controls style="width: 100%" preload="auto"
+                    src="viper.mp3" type="audio/mp3" id='player'></audio>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        歌詞
+                      </div>
+                      <div class="card-body">
+                          <button id="lyricButton" type="button" class="btn btn-primary" disabled >下載歌詞 (.lrc)</button>
+                          <p class="card-text" id="lyricArea">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/my-static/netease/bootstrap.bundle.min.js"></script>
+    <script src="/my-static/netease/netease.js"></script>
+    <script src="/my-static/netease/main.js"></script>
+
+
+  </body>
+</html>
