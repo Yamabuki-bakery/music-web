@@ -40,22 +40,37 @@ function clickAoButton() {
   loadSongData(song)
 }
 
+function nowLoading(working){
+  if(working){
+    aoButton.innerText = "LOADING";
+    aoButton.disabled = true;
+    downButton.innerText = 'LOADING';
+    downButton.setAttribute('disabled', '');
+  }else{
+    aoButton.innerText = "ao";
+    aoButton.disabled = false;
+    downButton.innerText = 'Download';
+    downButton.removeAttribute('disabled', '');
+  }
+}
+
 async function loadSongData(song) {
   mStorage.setItem('id', song.id);
-  aoButton.innerText = "LOADING";
+  nowLoading(true);
   searchBox.value = song.id;
   // todo song.exist = true;
   detailOk = await neteaseDetails(song);
   if (detailOk === null) {
     aoButton.innerText = "ao"
     // 404 或者失敗了
+    nowLoading(false);
     return;
   }
   if(!song.available)alert('這首歌似乎沒有版權，，，');
   updatePage(song);
   await getAudio(song);
   updatePage(song);
-  aoButton.innerText = "ao"
+  nowLoading(false);
 }
 
 // 通過 song 類型更新頁面
