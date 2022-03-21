@@ -31,7 +31,7 @@ function clickAoButton() {
     // 輸入的過於惡俗
     alert('輸入的 連結 或 ID 過於 惡俗！')
     return;
-  }else if(songID === song.id){
+  } else if (songID === song.id) {
     return;
   }
   song = Song(songID);
@@ -40,13 +40,13 @@ function clickAoButton() {
   loadSongData(song)
 }
 
-function nowLoading(working){
-  if(working){
+function nowLoading(working) {
+  if (working) {
     aoButton.innerText = "LOADING";
     aoButton.disabled = true;
     downButton.innerText = 'LOADING';
     downButton.setAttribute('disabled', '');
-  }else{
+  } else {
     aoButton.innerText = "ao";
     aoButton.disabled = false;
     downButton.innerText = 'Download';
@@ -66,7 +66,7 @@ async function loadSongData(song) {
     nowLoading(false);
     return;
   }
-  if(!song.available)alert('這首歌似乎沒有版權，，，');
+  if (!song.available) alert('這首歌似乎沒有版權，，，');
   updatePage(song);
   await getAudio(song);
   updatePage(song);
@@ -102,7 +102,7 @@ function updatePage(songObj) {
     player.src = songObj.flacUrl;
   }
 
-  if(!songObj.mp3Url) downButton.disabled = true;
+  if (!songObj.mp3Url) downButton.disabled = true;
 
   // 歌詞是另外的函數所以先判斷一下
   if (songObj.lyrics) {
@@ -112,8 +112,42 @@ function updatePage(songObj) {
     lyricButton.disabled = true;
   }
   document.title = songObj.name;
+  setMediaSession();
 }
 
+function setMediaSession() {
+  if ('mediaSession' in navigator) {
+    console.log('set media session')
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song.name,
+      artist: song.artist,
+      album: song.album,
+      artwork: [
+        { src: song.albumPicUrl }
+      ]
+    });
+
+    navigator.mediaSession.setActionHandler('play', function () { 
+      player.play(); 
+      navigator.mediaSession.playbackState = "playing";
+    });
+    navigator.mediaSession.setActionHandler('pause', function () { 
+      player.pause(); 
+      navigator.mediaSession.playbackState = "paused";
+    });
+    navigator.mediaSession.setActionHandler('seekbackward', function () { 
+      player.currentTime = Math.max(player.currentTime - skipTime, 0);
+    });
+    navigator.mediaSession.setActionHandler('seekforward', function () { 
+      player.currentTime = Math.min(player.currentTime + skipTime, player.duration);
+    });
+    navigator.mediaSession.setActionHandler('seekto', function () { 
+
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', null);
+    navigator.mediaSession.setActionHandler('nexttrack', null);
+  }
+}
 // TODO：回報錯誤
 function reportError(err) {
 
@@ -174,7 +208,7 @@ async function downBtnHandler() {
   let href;
   if (flacSwitch.checked) {
     href = song.flacUrl;
-    filename= filename + ".flac";
+    filename = filename + ".flac";
   } else {
     href = song.mp3Url;
     filename = filename + ".mp3";
@@ -182,11 +216,11 @@ async function downBtnHandler() {
   downButton.innerText = 'LOADING';
   downButton.setAttribute('disabled', '');
   let blob = await fetch(href).then(resp => resp.blob())
-  .then(blob => blob)
-  .catch(e => alert('下載失敗 ' + e))
+    .then(blob => blob)
+    .catch(e => alert('下載失敗 ' + e))
   if (window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveBlob(blob, filename);
-  }else{
+  } else {
     //alert("您地瀏覽器過於惡俗。");
     const elem = window.document.createElement('a');
     elem.href = window.URL.createObjectURL(blob);
@@ -259,6 +293,8 @@ flacSwitch.addEventListener("change", function (event) {
   if (playingNow) player.play();
 
 });
+// 設置播放器播放時更新 media session
+player.addEventListener('play', setMediaSession);
 
 // 設置音量不要那麼帶
 player.volume = 0.4;
