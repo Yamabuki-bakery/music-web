@@ -59,7 +59,10 @@ async function loadSongData(song) {
   nowLoading(true);
   searchBox.value = song.id;
   // todo song.exist = true;
-  detailOk = await neteaseDetails(song);
+  let detailPro = neteaseDetails(song);
+  let audioPro = getAudio(song);
+
+  detailOk = await detailPro;
   if (detailOk === null) {
     aoButton.innerText = "ao"
     // 404 或者失敗了
@@ -68,7 +71,7 @@ async function loadSongData(song) {
   }
   if (!song.available) alert('這首歌似乎沒有版權，，，');
   updatePage(song);
-  await getAudio(song);
+  await audioPro;
   updatePage(song);
   nowLoading(false);
 }
