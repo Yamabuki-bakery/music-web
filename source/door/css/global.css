@@ -1,0 +1,40 @@
+	html, body { height: 100%; }
+	html{font-size:13.33333333vw}
+	#container {
+		width: 100%;
+		height: 100%;
+		position: relative;	
+		background-color: #fff;
+	}
+	/** loading_tips start **/
+	.loading_mask {
+		height: 100%;
+		width: 100%;
+		background-color: #fff;
+		opacity: 0.9;
+		z-index: 999;
+		position: fixed;
+	}
+	.loading_tip {
+		width: 2rem;
+		height: 2rem;
+		position: fixed;
+		top: calc(50% - 1rem);
+		left: calc(50% - 1rem);
+		z-index: 1000;
+		background-color: #000;
+		border-radius: .2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		padding: .44rem 0;
+		opacity: 0.8;
+		color: #fff;
+		box-sizing: border-box;
+	}
+	.loading_tip .weui-loading {
+		height: .6rem;
+		width: .6rem;
+	}
+	/** loading_tips end **/

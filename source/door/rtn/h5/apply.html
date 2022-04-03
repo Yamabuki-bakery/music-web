@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="full-screen" content="yes">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta http-equiv="cache-control" content="max-age=0"/>
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+	<meta http-equiv="Pragma" content="no-cache"/>
+	<meta http-equiv="Expires" content="0"/>
+	<title>返校申请</title>
+	<link rel="stylesheet" href="../../plugin/layui/css/layui.css">
+	<link rel="stylesheet" href="../../plugin/weui/css/weui.css">
+	<link rel="stylesheet" href="css/apply.css">	
+</head>
+<body>
+	<div id="container">
+		<!-- 加载中 -->
+		<div id="weuiToast" style="display: none;">
+			<div class="weui-mask_transparent"></div>
+			<div class="weui-toast weui-toast_text">
+				<p class="weui-toast__content" id="toastText"></p>
+			</div>
+		</div>
+		
+		<div class="js_dialog" id="confirmDialog" style="display: none;">
+			<div class="weui-mask"></div>
+			<div class="weui-dialog">
+				<div class="weui-dialog__hd"><strong class="weui-dialog__title"></strong></div>
+				<div class="weui-dialog__bd" id="confirmText"></div>
+				<div class="weui-dialog__ft">
+					<a href="javascript:" class="weui-dialog__btn weui-dialog__btn_primary" id="confirmBtn" onclick="Global_FN.closeDialog()">确认</a>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="main">
+			<form class="input-group layui-form" lay-filter="filter_form">
+				<!-- 步骤栏 -->
+				<div class="step_box"><div class="step line"><img src="img/true.png"><span>提交</span></div><div class="step line"><img src="img/true.png"><span>院级审批</span></div><div class="step "><img src="img/true.png"><span>校级审批</span></div></div>
+				<div class="bigTitle">返校信息</div>	
+				
+				<div class="weui-input-row radio_box short_radio">
+					<label class="smTitle"><span class="bt">*</span contenteditable="true">返校类型</label>
+					<input name="iApplyType" type="radio" value="1" lay-filter="iApplyType" checked>返校
+					<input name="iApplyType" type="radio" value="2" lay-filter="iApplyType">不返校
+				</div>
+				<div class="weui-input-row dReturnDate_show">
+					<label class="smTitle"><span class="bt">*</span contenteditable="true"><span class="dReturnDateLabel">到校时间</span contenteditable="true"> </label>
+					<div class="picker_div_box">
+						<div class="dReturnDate" contenteditable="true"></div>
+						<div id="dReturnDate">选择</div>
+					</div>
+				</div>
+				<div class="weui-input-row">
+					<label class="smTitle"><span class="bt">*</span contenteditable="true"> <span class="sNowAddr_required">备注（提前返校/不返校理由）</span contenteditable="true"> </label>
+					<div class="weui-cell" style="border: 1px solid #efefef;">
+						<div class="weui-cell__bd">
+							<textarea class="weui-textarea" name="sApplyRemark" placeholder="" rows="3"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="weui-input-row">
+					<label class="smTitle"><span class="sBatchName_required">返校批次</span contenteditable="true"> </label>
+					<input value="2021至2022学年第2学期" type="text" class="weui-input" name="sBatchName" placeholder="请输入" autocomplete="off">
+				</div>
+				<div class="weui-input-row">
+					<label class="smTitle"><span class="iSelfState_required">健康状况</span contenteditable="true"> </label>
+					<input value="正常" type="text" class="weui-input" name="iSelfState" placeholder="请输入" autocomplete="off">
+				</div>
+				<div class="weui-input-row">
+					<label class="smTitle"><span class="dRptDate_required">最新健康填报日期</span contenteditable="true"> </label>
+					<input value="2022-04-01" type="text" class="weui-input" name="dRptDate" placeholder="请输入" autocomplete="off">
+				</div>
+				
+				<div class="normal_title">基本信息</div>
+				<div class="info_box"><div class="info_list"><span contenteditable="true">学年</span contenteditable="true"><span contenteditable="true">2021-2022</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">学期</span contenteditable="true"><span contenteditable="true">第二学期</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">姓名</span contenteditable="true"><span contenteditable="true">name</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">年级</span contenteditable="true"><span contenteditable="true">2021</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">学院</span contenteditable="true"><span contenteditable="true">学院</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">专业</span contenteditable="true"><span contenteditable="true">xx</span contenteditable="true"></div><div class="info_list"><span contenteditable="true">班级</span contenteditable="true"><span contenteditable="true"></span contenteditable="true"></div><div class="info_list"><span contenteditable="true">学生类型</span contenteditable="true"><span contenteditable="true">本科生/研究生</span contenteditable="true"></div></div>
+
+
+				
+			</form>	
+			
+			<div class="logo_box" style="display: block;">
+				<img id="logo" src="./img/pass.png" alt="">
+			</div>
+			<div class="disabled_mask"></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../plugin/layui/layui.js"></script>	
+<script type="text/javascript" src="../../plugin/weui/weui.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/SysUtils.js"></script>
+<script type="text/javascript" src="js/apply.js"></script>
+</html>

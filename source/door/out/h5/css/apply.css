@@ -1,0 +1,224 @@
+@import url("../../../css/reset.css");
+@import url("../../../css/border.css");
+@import url("../../../css/global.css");
+
+.colorFG { color: var(--weui-FG-1); }
+#container {
+/* 	height: 100%; */
+	width: 100%;
+	position: relative;
+	background-color: #eee;
+	padding-bottom: 1rem;
+	box-sizing: border-box;
+/* 	padding: .2rem 0; */
+}
+
+/* form start */
+/* .weui-cells__group_form {
+	padding-bottom: 2rem;
+} */
+
+.weui-input-row label, .weui-input-row input, .weui-input-row label~input {
+	display: block;
+	width: 100%;
+	float: none;
+}
+.weui-input-row label { padding: 0; }
+.weui-input-row input { 
+	height: .48rem; 
+	padding: 0; 
+	padding-bottom: .3rem; 
+	border-bottom: 1px solid #f3f3f3 !important;
+}
+/* .weui-input-row.radio_box {
+	padding-bottom: .3rem;
+	border-bottom: 1px solid #f3f3f3 !important;
+} */
+.smTitle {
+	font-size: 13px;
+	margin: .3rem 0;
+	font-family: inherit;
+}
+
+.input-group {padding-bottom: 1rem;}
+.weui-cells__group_form .weui-cells__title {
+	padding: .3rem;
+	margin: 0;
+}
+.weui-cells__group_form .weui-cell { padding: .3rem; }
+.weui-cells { font-size: 14px; }
+.weui-cells__group_form .weui-cell_select { padding: .3rem; }
+.weui-cell_select-after.weui-cell_access .weui-cell__bd { 
+	line-height: inherit; 
+	display: flex;
+	justify-content: flex-end;
+	padding-right: .5rem;
+}
+.weui-cells__group_form .weui-cell_select .weui-cell__bd:after { right: .3rem; }
+.weui-label.required:before { content: '* '; color: red; margin-left: -.2rem; }
+.upload_btn {
+	height: 1.1rem;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	color: #fff;
+	background-color: #2095fe;
+}
+.upload_btn:hover, .upload_btn:active {
+	color: #fff;
+	background-color: #2095fe;
+}
+.upload_btn.btn_disabled {
+	background-color: #D3DDE6;
+	color: #8D9399;
+}
+.cancel_btn {
+	height: 1.1rem;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	color: #EC808D;
+	border: 1px solid #EC808D;
+}
+.cancel_btn:hover, .cancel_btn:active {
+	color: #EC808D;;
+	background-color: #fff;
+}
+
+.layui-form input { text-align: right; }
+.batch_box, .return_box, .info_box { background-color: #fff; }
+.info_list {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .3rem;
+	border-bottom: 1px solid #EEEEEE;
+}
+.weui-cells__title {
+	padding: .3rem;
+	margin: 0;
+}
+
+/** radio strat **/
+.short_radio .layui-form-radio { margin: 0; }
+.layui-form-radio { margin: 0; padding: 0; }
+.short_radio .layui-form-radio { margin-left: .1rem; }
+.long_radio.radio_box > div:last-child { padding: 0; }
+/** radio end **/
+
+.bt {
+	color: red;
+	font-weight: 700;
+	margin-right: .1rem;
+}
+.form_select {
+	display: flex;
+	text-align: right;
+}
+.form_select span {
+	color: #2095FE;
+	margin-left: .2rem;
+}
+.weui-cells__group_form .weui-cell:before {
+	content: "";
+	height: 0;
+	border: none;
+}
+/* form end */
+
+/** step start **/
+.step_box {
+	display: flex;
+	justify-content: center;
+	color: #7f7f7f;
+	padding: .3rem 0;
+	background-color: #fff;
+/* 	margin-top: .3rem;
+	margin-bottom: .3rem; */
+}
+.step_box img {
+	height: .4rem;
+	width: .4rem;
+	margin: 0 .1rem;
+}
+.step.line::after {
+	content: "——";
+	margin: .1rem;
+}
+/** step start **/
+
+.btn_add {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	height: 1rem;
+	line-height: 1rem;
+	color: #fff;
+	background-color: #2095FE;
+	font-size: 16px;
+	z-index: 999;
+}
+.btn_add.disabled {
+	color: #fff;
+	background-color: #DDDDDD;
+}
+.btn_cancel {
+	box-sizing: border-box;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	height: 1rem;
+	line-height: 1rem;
+	color: #EC808D;
+	border: 1px solid #EC808D;
+	background-color: #fff;
+	font-size: 16px;
+	z-index: 1002;
+}
+
+.weui-uploader__input-box {
+	display: inline-block;
+	float: none;
+}
+.img_upload_btn {
+	height: inherit;
+	width: inherit;
+		background-size: 100% 100%;
+}
+.img_box {
+	display: none;
+	height: 1.92rem;
+	width: 1.92rem;
+	border: 1px solid #ddd;
+	background-size: 100% 100%;
+}
+
+.bottomTips {
+	color: #999;
+	padding: .5rem .2rem;
+	background-color: #eee;
+}
+
+.logo_box {
+	display: none;
+	position: fixed;
+	width: 5.5rem;
+	top: 2rem;
+	left: calc((100% - 5.5rem) / 2);
+}
+.logo_box img {
+	width: 100%;
+	height: auto;
+}
+.disabled_mask {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 1000;
+}
