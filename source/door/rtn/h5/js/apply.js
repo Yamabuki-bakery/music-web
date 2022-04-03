@@ -53,13 +53,162 @@ var Global_FN = {
 			let form = layui.form;
 			let $ = layui.jquery;
 			
-			form.val(Global_VAR.formName, {
-				dRptDate: Global_VAR.info.dRptDate,
-				iSelfState: iSelfState,
-				iApplyType: Global_VAR.info.iApplyType,
-				sBatchName: "23333",
-				sApplyRemark: Global_VAR.info.sApplyRemark
-			});	
+			$.ajax({
+				url: Global_VAR.get,
+				type: "get",
+				data: {},
+				success: function(res) {
+					if(res.code == 1) {
+						console.log(res);
+			
+						Global_VAR.info = res.data;
+						
+						Global_VAR.infoList[0].value = Global_VAR.info.sYear;
+						Global_VAR.info.iTerm == 1 ? Global_VAR.infoList[1].value = "第一学期" : "";
+						Global_VAR.info.iTerm == 2 ? Global_VAR.infoList[1].value = "第二学期" : "";
+						Global_VAR.infoList[2].value = Global_VAR.info.sPersonName;
+						Global_VAR.infoList[3].value = Global_VAR.info.iInSchool;
+						Global_VAR.infoList[4].value = Global_VAR.info.sCollegeName;
+						Global_VAR.infoList[5].value = Global_VAR.info.sMajorName;
+						Global_VAR.infoList[6].value = Global_VAR.info.sClassName || "";
+						Global_VAR.infoList[7].value = Global_VAR.info.sDegreeName;
+						
+						var iSelfState = "";
+						if (Global_VAR.info.iSelfState) {
+							Global_VAR.info.iSelfState == 1 ? iSelfState = "正常" : "";
+							Global_VAR.info.iSelfState == 2 ? iSelfState = "居家隔离中（指密切接触者或到过疫区的人），未出现发热、咳嗽等症状" : "";
+							Global_VAR.info.iSelfState == 3 ? iSelfState = "居家隔离中（指密切接触者或到过疫区的人），出现发热、咳嗽等症状" : "";
+							Global_VAR.info.iSelfState == 4 ? iSelfState = "集中隔离中（指密切接触者或到过疫区的人），未出现发热、咳嗽等症状" : "";
+							Global_VAR.info.iSelfState == 5 ? iSelfState = "集中隔离中（指密切接触者或到过疫区的人），出现发热、咳嗽等症状" : "";
+							Global_VAR.info.iSelfState == 6 ? iSelfState = "疑似病例" : "";
+							Global_VAR.info.iSelfState == 7 ? iSelfState = "确诊病例" : "";
+							Global_VAR.info.iSelfState == 8 ? iSelfState = "疑似病例已排除" : "";
+							Global_VAR.info.iSelfState == 9 ? iSelfState = "确诊病例已治愈" : "";
+							Global_VAR.info.iSelfState == 10 ? iSelfState = "其他" : "";
+						}
+						
+						form.val(Global_VAR.formName, {
+							dRptDate: Global_VAR.info.dRptDate,
+							iSelfState: iSelfState,
+							iApplyType: Global_VAR.info.iApplyType,
+							sBatchName: Global_VAR.info.sBatchName,
+							sApplyRemark: Global_VAR.info.sApplyRemark
+						});
+						
+						Global_VAR.info.dReturnDate != null ? $(".dReturnDate").text(Global_VAR.info.dReturnDate) : "";
+						
+						// 进度判断
+						console.log(Global_VAR.info.iApplyType);
+						if (Global_VAR.info.iApplyType) {
+							Global_VAR.stepBox[0].url = "img/true.png";
+							$(".btn_add").hide();
+							$(".btn_cancel").show();
+							
+							// Global_VAR.isDisabled = true;
+							// $("input[name='iApplyType']").attr("disabled", "disabled");
+							// $("textarea[name='sApplyRemark']").attr("disabled", "disabled");
+							// $("#dReturnDate").hide();
+							
+							if (Global_VAR.info.iCAppState) {
+								if (Global_VAR.info.iCAppState == 1) {
+									Global_VAR.stepBox[1].url = "img/true.png";
+								} else if (Global_VAR.info.iCAppState == 2) {
+									Global_VAR.stepBox[1].url = "img/error.png";
+								}
+								$(".disabled_mask").show();
+								$(".logo_box img").attr("src" ,"./img/wait.png");
+								
+								$(".btn_cancel").hide();
+							} else {
+								Global_VAR.stepBox[1].url = "img/unTrue.png";
+							}
+							if (Global_VAR.info.iSAppState) {
+								if (Global_VAR.info.iSAppState == 1) {
+									Global_VAR.stepBox[2].url = "img/true.png";
+								} else if (Global_VAR.info.iSAppState == 2) {
+									Global_VAR.stepBox[2].url = "img/error.png";
+								}
+								$(".disabled_mask").show();
+								$(".logo_box img").attr("src" ,"./img/wait.png");
+								
+								$(".btn_cancel").hide();
+							} else {
+								Global_VAR.stepBox[2].url = "img/unTrue.png";
+							}
+							
+							if (Global_VAR.info.iCAppState == 1 && Global_VAR.info.iSAppState == 1 ) {
+								$(".logo_box img").attr("src" ,"./img/pass.png");
+								// $(".disabled_mask").show();
+							} else if (Global_VAR.info.iCAppState == 2 ||  Global_VAR.info.iSAppState == 2) {
+								$(".logo_box img").attr("src" ,"./img/noPass.png");
+								// $(".disabled_mask").show();
+							} else {
+								// $(".disabled_mask").hide();
+							}
+							
+							$(".logo_box").show();
+						} else {
+							Global_VAR.stepBox[0].url = "img/unTrue.png";
+							Global_VAR.stepBox[1].url = "img/unTrue.png";
+							Global_VAR.stepBox[2].url = "img/unTrue.png";
+							$(".btn_add").show();
+							$(".btn_cancel").hide();
+							$(".logo_box").hide();
+							$(".disabled_mask").hide();
+							
+							// Global_VAR.isDisabled = false;
+							// $("input[name='iApplyType']").removeAttr("disabled", "disabled");
+							// $("textarea[name='sApplyRemark']").removeAttr("disabled", "disabled");
+							// $("#dReturnDate").show();
+						}
+						
+						if (Global_VAR.info.iApplyType == 1) {
+							// $(".sApplyRemark_show").hide();
+							$(".dReturnDate_show").show();
+							
+							$('.dReturnDate').text(Global_VAR.info.dReturnDate);
+						} else if (Global_VAR.info.iApplyType == 2) {
+							// $(".sApplyRemark_show").show();
+							$(".dReturnDate_show").hide();
+							
+							form.val(Global_VAR.formName, {
+								sApplyRemark: Global_VAR.info.sApplyRemark
+							});
+
+						}
+						
+						Global_FN.getStepBox();
+								
+						if (Global_VAR.infoList.length != 0) {
+							$(".info_box").empty();
+							let sList = "";
+							$.each(Global_VAR.infoList, (index, item) => {
+								// console.log(item);
+								sList += '<div class="info_list"><span>'+ item.label +'</span><span>'+ item.value +'</span></div>';
+							})
+							$(".info_box").html(sList);
+						}
+						
+						Global_FN.isShowLoading(false);
+						
+						// Global_FN.getInfoList();
+						// Global_FN.isShowLoading(false);
+			
+					} else {
+						Global_FN.isShowDialog(res.msg);				
+						// Global_FN.isShowTopTips(res.msg, false);
+						Global_VAR.bIsClick = true;
+					}
+				},
+				error: function (res) {
+					Global_FN.isShowDialog(res.msg);				
+					// Global_FN.isShowTopTips("亲，网络异常~", false);
+					Global_VAR.bIsClick = true;
+				}
+			})
+			
+
+		});	
 	},
 	// 获取进度栏
 	getStepBox () {
