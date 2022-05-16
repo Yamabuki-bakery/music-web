@@ -197,10 +197,10 @@ export async function onRequest(context) {
     
 
     if (id >= 0 && 
-        (headersObject["user-agent"].includes("bot") 
-        || headersObject["user-agent"].includes("crawl")
-        || headersObject["user-agent"].includes("curl")
-        || headersObject["user-agent"].includes("fetch"))
+        (headersObject["user-agent"].toLowerCase().includes("bot") 
+        || headersObject["user-agent"].toLowerCase().includes("crawl")
+        || headersObject["user-agent"].toLowerCase().includes("curl")
+        || headersObject["user-agent"].toLowerCase().includes("fetch"))
         ) {
         // 歌曲清單
         let result = await fetch(apiUrl, {
