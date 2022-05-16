@@ -158,7 +158,7 @@ function reportError(err) {
 // 切換到下一個頁面狀態（指變更地址欄）
 function addState(songID) {
   let stateObj = { id: songID };
-  window.history.pushState(stateObj, "Song:" + songID, "/netease/?id=" + songID);
+  window.history.pushState(stateObj, "Song:" + songID, window.location.pathname + "?id=" + songID);
 }
 // 前進和後退
 window.onpopstate = function (e) {
