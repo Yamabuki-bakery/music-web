@@ -191,7 +191,17 @@ export async function onRequest(context) {
 
     id = parseInt(id);
     console.log(`the id param is ${id}`);
-    if (id >= 0) {
+
+    let headersObject = Object.fromEntries(request.headers)
+    //let requestHeaders = JSON.stringify(headersObject, null, 2)
+    
+
+    if (id >= 0 && 
+        (headersObject["user-agent"].includes("bot") 
+        || headersObject["user-agent"].includes("crawl")
+        || headersObject["user-agent"].includes("curl")
+        || headersObject["user-agent"].includes("fetch"))
+        ) {
         // 歌曲清單
         let result = await fetch(apiUrl, {
             method: 'POST',
