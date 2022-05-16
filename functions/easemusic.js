@@ -186,11 +186,6 @@ export async function onRequest(context) {
     } = context;
     const apiUrl = "https://netease.esutg.workers.dev/api";
 
-    let pathArray = request.url.split('/');
-    let protocol = pathArray[0];
-    let host = pathArray[2];
-    let origin = protocol + '//' + host;
-
     const { searchParams } = new URL(request.url)
     let id = searchParams.get('id')
 
