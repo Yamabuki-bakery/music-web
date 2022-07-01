@@ -2,7 +2,7 @@
 
 神必服務
 
-https://jvbao.eu.org/netease/
+https://jvbao.eu.org/easemusic/
 
 MyPass
 
