@@ -56,7 +56,7 @@ function makeHTML(result){
       </head>
     
       <body>
-        <div class="container">
+        <div class="container sticky-top">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <div class="container my-2">
                 <!--頂欄元素-->
